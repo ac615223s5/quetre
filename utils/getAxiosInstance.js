@@ -4,7 +4,6 @@
 import axios from 'axios';
 import settle from 'axios/unsafe/core/settle.js';
 import initCycleTLS from 'cycletls';
-import { Readable } from 'node:stream';
 
 const cycleTLS = await initCycleTLS();
 
@@ -68,7 +67,7 @@ const axiosCycleTlsAdapter = (config) => {
         break;
       }
       case "stream": {
-        resp.data = Readable.fromWeb(cycleResponse.data);
+        resp.data = cycleResponse.data;
         break;
       }
       default: {
