@@ -8,7 +8,7 @@
   "scripts": {
     "sass:watch": "sass views/sass/main.scss:public/css/styles.css --watch",
     "sass:build": "sass views/sass/main.scss:public/css/styles.css --style=compressed",
-    "server:dev": "NODE_ENV=development nodemon server.js",
+    "server:dev": "nodemon server.js",
     "server:prod": "nodemon server.js",
     "dev": "pnpm sass:watch & pnpm server:dev",
     "prod": "pnpm sass:build && pnpm server:prod",
@@ -31,6 +31,7 @@
     "axios": "^1.6.8",
     "cheerio": "1.0.0-rc.12",
     "compression": "^1.7.4",
+    "cycletls": "^2.0.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
