@@ -42,9 +42,13 @@ const axiosCycleTlsAdapter = (config) => {
       body: config.data,
       headers: config.headers,
       responseType: config.responseType,
-      ja3: process.env.CYCLETLS_JA3 ?? "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,35-16-43-18-23-17613-10-51-0-65281-5-13-27-11-45-65037,4588-29-23-24,0",
       userAgent: config.userAgent,
-      http2Fingerprint: process.env.CYCLETLS_HTTP2_FINGERPRINT ?? "1:65536;2:0;4:6291456;6:262144|15663105|0|m,a,s,p",
+      ja3: process.env.CYCLETLS_JA3,
+      ja4r: process.env.CYCLETLS_JA4R,
+      http2Fingerprint: process.env.CYCLETLS_HTTP2_FINGERPRINT,
+      quicFingerprint: process.env.CYCLETLS_QUIC_FINGERPRINT,
+      forceHTTP3: process.env.CYCLETLS_FORCE_HTTP3 === '1',
+      proxy: process.env.HTTP_PROXY,
     }, config.method);
 
     const resp = {
