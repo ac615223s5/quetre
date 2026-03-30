@@ -1,8 +1,8 @@
-FROM node:alpine3.17
+FROM node:25-trixie-slim
 WORKDIR /app
 
-RUN apk update && apk add git   
-RUN git clone https://github.com/zyachel/quetre .
+COPY . /app
+RUN apt update && apt install -y ca-certificates
 RUN npm i -g pnpm
 RUN pnpm install
 
