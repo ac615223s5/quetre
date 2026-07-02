@@ -7,6 +7,11 @@ import initCycleTLS from 'cycletls';
 
 const cycleTLS = await initCycleTLS();
 
+// a real browser User-Agent is used by default so it matches the browser TLS
+// fingerprint CycleTLS impersonates; overridable via AXIOS_USER_AGENT.
+const DEFAULT_USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+
 ////////////////////////////////////////////////////////
 //                     FUNCTION
 ////////////////////////////////////////////////////////
@@ -20,11 +25,9 @@ const getAxiosInstance = (subdomain = 'www') =>
     baseURL: `https://${subdomain}.quora.com`,
     // conditionally adding headers to the request config using ES6 spreading and short-circuiting
     headers: {
-      ...(process.env.AXIOS_USER_AGENT && {
-        'User-Agent': process.env.AXIOS_USER_AGENT,
-      }),
-      ...(process.env.ACCEPT && {
-        Accept: process.env.ACCEPT,
+      'User-Agent': process.env.AXIOS_USER_AGENT || DEFAULT_USER_AGENT,
+      ...(process.env.AXIOS_ACCEPT && {
+        Accept: process.env.AXIOS_ACCEPT,
       }),
     },
     adapter: axiosCycleTlsAdapter,
@@ -41,7 +44,7 @@ const axiosCycleTlsAdapter = (config) => {
       body: config.data,
       headers: config.headers,
       responseType: config.responseType,
-      userAgent: config.userAgent,
+      userAgent: config.headers?.['User-Agent'],
       ja3: process.env.CYCLETLS_JA3,
       ja4r: process.env.CYCLETLS_JA4R,
       http2Fingerprint: process.env.CYCLETLS_HTTP2_FINGERPRINT,
