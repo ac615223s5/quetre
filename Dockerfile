@@ -3,8 +3,10 @@ WORKDIR /app
 
 COPY . /app
 RUN apt update && apt install -y ca-certificates
-RUN npm i -g pnpm
-RUN pnpm install
+# pnpm 8 matches the committed lockfile format(lockfileVersion 6.0); newer
+# majors rewrite it and break `--frozen-lockfile`.
+RUN npm i -g pnpm@8
+RUN pnpm install --frozen-lockfile
 
 EXPOSE 3000
 
