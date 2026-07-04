@@ -15,6 +15,10 @@ services:
       - "CACHE_PERIOD=1h"
       - "REDIS_URL=redis:6379" # optional
       - "REDIS_TTL=3600"
+      - "CYCLETLS_FORCE_HTTP3=1"
+      - "CYCLETLS_QUIC_FINGERPRINT=1:65536;6:262144;7:100;51:1;GREASE|GREASE|984832|m,a,s,p"
+      - "AXIOS_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+
   redis:
    image: docker.io/redis:alpine
    container_name: redis
